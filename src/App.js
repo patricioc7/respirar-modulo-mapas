@@ -1,58 +1,74 @@
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useMemo } from "react";
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { Map } from "./components/map/map";
+import { Navbar } from "./components/navbar/navbar";
 
 function App() {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyBwnGHauDu6fcE0AIO2f3wdMyPxdoeK--I',
-    });
-    const center = useMemo(() => ({ lat: -34.58638551527179, lng: -58.40026132075488 }), []);
+  const [coords, setCoords] = useState({
+    latitude: "-34.58638551527179",
+    longitude: "-58.40026132075488",
+  });
+  const [cityName, setCityName] = useState("");
 
-    return (
-        <div >
-            {/* START NAV BAR */}
-            <nav class="navbar fixed-top bg-primary fondo-navbar">
-                <div class="container-fluid">
-                    <img class="navbar-brand" src="./Logo-Respirar.png" alt="Logo Respirar" href="#" width="100px"/>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                        <span class="navbar-dark navbar-toggler-icon"></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <a class="nav-link active text-primary" aria-current="page" href="#">Registrate</a>
-                                </li>
-                            </ul>
-                            <form class="d-flex mt-3" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscá tu estación" aria-label="Search" />
-                                <button class="btn btn-outline-success" type="submit">Buscar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            {/* END NAV BAR */}
-            
-            {/* START MAP MODULE */}
-            {!isLoaded ? (
-                <h1>Loading...</h1>
-            ) : (
-                <GoogleMap
-                    mapContainerClassName="map-container"
-                    center={center}
-                    zoom={20}
-                >
-                    <Marker position={{ lat: -34.58638551527179, lng: -58.40026132075488 }} icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"} />
-                </GoogleMap>
-            )}
-            {/* END MAP MODULE */}
-        </div>
+  const options = {
+    enableHighAccuracy: true,
+    maximumAge: 30000,
+    timeout: 27000,
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      getCurrentCityName,
+      error,
+      options
     );
+  }, []);
+
+  const error = (err) => {
+    if (
+      err.code === 1 || //if user denied accessing the location
+      err.code === 2 || //for any internal errors
+      err.code === 3 //error due to timeout
+    ) {
+      alert(err.message);
+    } else {
+      alert(err);
+    }
+  };
+
+  const getCurrentCityName = (position) => {
+    setCoords({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+
+    let url =
+      "https://nominatim.openstreetmap.org/reverse?format=jsonv2" +
+      "&lat=" +
+      coords.latitude +
+      "&lon=" +
+      coords.longitude;
+
+    fetch(url, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "https://o2cj2q.csb.app",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setCityName(data.display_name));
+  };
+
+  return (
+    <div>
+      {/* START NAV BAR */}
+      <Navbar />
+      {/* END NAV BAR */}
+
+      <Map coords={coords} dispaly_name={cityName} />
+    </div>
+  );
 }
 
 export default App;
