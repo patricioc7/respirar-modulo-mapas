@@ -6,7 +6,7 @@ export const Navbar = () => {
       <div className="container-fluid">
         <img
           className="navbar-brand"
-          src="../../images/Logo-Respirar.png"
+          src="../Logo-Respirar.png"
           alt="Logo Respirar"
           href="#"
           width="100px"
