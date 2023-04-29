@@ -10,4 +10,6 @@
 
 .fondo-navbar {
   background-image: url("../public/fondo_navbar.gif");
+  background-repeat: no-repeat;
+  background-position: center;
 }
