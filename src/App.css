@@ -94,3 +94,10 @@
 h5 {
   font-family: 'Gotham';
 }
+
+.fondo-menu{
+  background-image: url("../public/fondo_menú.gif");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 350px;
+}

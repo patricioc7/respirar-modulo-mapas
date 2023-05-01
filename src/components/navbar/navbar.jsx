@@ -22,7 +22,7 @@ export const Navbar = () => {
           <span className="navbar-dark navbar-toggler-icon"></span>
         </button>
         <div
-          className="offcanvas offcanvas-end bg-primary"
+          className="offcanvas offcanvas-end bg-primary fondo-menu"
           tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
