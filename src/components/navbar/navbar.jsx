@@ -22,13 +22,13 @@ export const Navbar = () => {
           <span className="navbar-dark navbar-toggler-icon"></span>
         </button>
         <div
-          className="offcanvas offcanvas-end"
+          className="offcanvas offcanvas-end bg-primary fondo-menu"
           tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+          <div className="offcanvas-header bg-secondary">
+            <h5 className="" id="offcanvasNavbarLabel">
               Menú
             </h5>
             <button
@@ -38,11 +38,11 @@ export const Navbar = () => {
               aria-label="Close"
             ></button>
           </div>
-          <div className="offcanvas-body">
-            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li className="nav-item">
+          <div className="">
+            <ul className="box-registro">
+              <li className="">
                 <a
-                  className="nav-link active text-primary"
+                  className="fs-3 texto"
                   aria-current="page"
                   href="#"
                 >
@@ -50,14 +50,14 @@ export const Navbar = () => {
                 </a>
               </li>
             </ul>
-            <form className="d-flex mt-3" role="search">
+            <form className="d-flex mt-3 box-buscador" role="search">
               <input
-                className="form-control me-2"
+                className="box me-2"
                 type="search"
                 placeholder="Buscá tu estación"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="boton" type="submit">
                 Buscar
               </button>
             </form>

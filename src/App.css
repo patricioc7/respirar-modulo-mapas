@@ -3,6 +3,21 @@
   width: 100vw;
 }
 
+@font-face {
+  font-family: 'GothamMedium';
+  src: url('../public/GothamMedium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GothamLight';
+  src: url('../public/GothamLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../public/GothamBold.ttf') format('truetype');
+}
+
 .leaflet-container {
   width: 100%;
   height: 1000px;
@@ -10,4 +25,79 @@
 
 .fondo-navbar {
   background-image: url("../public/fondo_navbar.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.box-registro {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 8px;
+  list-style: none;
+  background-color: #8883d7;
+  transition: 0.6s;
+}
+
+.box-registro .texto {
+  color: white;
+  text-decoration: none;
+  font-family: "GothamBold";
+  padding-left: 8px;
+  transition: 0.6s;
+}
+
+.box-registro:hover{
+  background-color: white;
+  transition: 0.6s;
+}
+
+.box-registro:hover .texto {
+  color: #8883d7;
+  padding-left: 30px;
+  transition: 0.6s;
+}
+
+.box-buscador{
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.box-buscador .boton{
+  background-color: white;
+  border-radius: 10px;
+  width: 90px;
+  height: 50px;
+  border-inline: none;
+  border-style: none;
+  font-family: "GothamBold";
+  font-weight: 900;
+  color:#8883d7;
+  transition: 0.6s;
+}
+
+.box-buscador .box{
+  width: 400px;
+  height: 50px;
+  border-radius: 40px;
+  border-style: none;
+  padding-left: 20px;
+  font-family: "GothamLight";
+}
+
+.box-buscador:hover .boton{
+  background-color: #00ce7c;
+  color:white;
+  transition: 0.6s;
+}
+
+h5 {
+  font-family: 'Gotham';
+}
+
+.fondo-menu{
+  background-image: url("../public/fondo_menú.gif");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 350px;
 }
