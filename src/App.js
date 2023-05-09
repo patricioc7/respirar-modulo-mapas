@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Map } from "./components/map/map";
 import { Navbar } from "./components/navbar/navbar";
-import { getStations } from "./services/stationsSerivice";
+import { getStations } from "./services/stationsService";
 
 function App() {
   const [stations, setStations] = useState([]);

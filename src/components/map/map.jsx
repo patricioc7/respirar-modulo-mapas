@@ -35,7 +35,7 @@ export const Map = ({ stations }) => {
       error,
       options
     );
-  }, []);
+  });
 
   const centerMapOnUserLocation = (position) => {
     setCoords({
