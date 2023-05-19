@@ -4,20 +4,18 @@ const baseURL = process.env.REACT_APP_STATIONS_SERVICE_BASE_URL
 
 const apiClient = {
 
-    getStations : async (userId) => {
+    getStations : async (jwt) => {
         const stations = "/stations"
-        const user = "/user"
-
-        const getStationsURL = userId ? (`${baseURL + stations + user}/${userId}`) :  baseURL + stations
-
-        return axios.get(getStationsURL)
-            .then( (response) => {
-                console.log(response);
-                return response.data;
+        let getStationsURL =  baseURL + stations
+        if(jwt) {
+            getStationsURL = getStationsURL + "?onlyUserStations=true"
+            return axios.get(getStationsURL, {
+                headers: {
+                    Authorization: jwt,
+                },
             })
-            .catch((error) => {
-                console.log(error);
-            });
+        }
+        return axios.get(getStationsURL)
     },
 
     login: (body) => {

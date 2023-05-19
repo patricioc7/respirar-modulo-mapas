@@ -11,19 +11,11 @@ import {SessionContext} from "../../context/sessionContext";
 
 const LoginAndRegister = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [userNameAndPassword, setUsernameAndPassword] = useState({});
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [loginError, setLoginError] = useState(false);
 
   const session = useContext(SessionContext);
-
-  const handleLoginFormChanges = (field, value) => {
-    setUsernameAndPassword((prevState) => {
-      return {
-        ...prevState,
-        [field]: value,
-      };
-    });
-  };
 
   const handleCloseModals = () => {
     setShowLoginModal(false);
@@ -32,7 +24,7 @@ const LoginAndRegister = () => {
 
   const handleLogin = () => {
     apiClient
-      .login(userNameAndPassword)
+      .login({username, password})
       .then((response) => {
         setSessionCookie(response.data.token);
         window.location.reload();
@@ -68,7 +60,7 @@ const LoginAndRegister = () => {
                 type="text"
                 placeholder="email"
                 onChange={(e) =>
-                  handleLoginFormChanges("username", e.target.value)
+                  setUsername( e.target.value)
                 }
               />
             </Form.Group>
@@ -79,7 +71,7 @@ const LoginAndRegister = () => {
                 type="password"
                 placeholder="Password"
                 onChange={(e) =>
-                  handleLoginFormChanges("password", e.target.value)
+                  setPassword(e.target.value)
                 }
               />
             </Form.Group>

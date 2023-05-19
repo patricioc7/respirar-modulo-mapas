@@ -1,9 +1,10 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
 import {apiClient} from "../../services/apiClient";
+import {SessionContext} from "../../context/sessionContext";
 
 export const Map = () => {
   const [stations, setStations] = useState([]);
@@ -19,11 +20,13 @@ export const Map = () => {
     timeout: 27000,
   };
 
+  const session = useContext(SessionContext);
+
   useEffect(() => {
-    apiClient.getStations(undefined).then((mappedStations) => {
-      setStations(mappedStations);
+    apiClient.getStations(session).then((response) => {
+      setStations(response.data);
     });
-  }, [stations]);
+  }, []);
 
   const error = (err) => {
     if (
@@ -79,7 +82,6 @@ export const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {stations.map((station) => {
-        console.log(station);
         return (
           // TODO hacer bien este markup que es horrible
           <Marker
