@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Map } from "./components/map/map";
 import { Navbar } from "./components/navbar/navbar";
-import { getStations } from "./services/stationsService";
+import { getSessionCookie } from "./services/sessionCookie";
+import { SessionContext } from "./context/sessionContext";
 
 function App() {
-  const [stations, setStations] = useState([]);
 
-  useEffect(() => {
-    getStations(undefined).then((mappedStations) => {
-      setStations(mappedStations);
-    });
-  }, []);
+    const [session, setSession] = useState(getSessionCookie());
+
+    useEffect(() => {
+        setSession(getSessionCookie());
+    }, [session]);
 
   return (
+      <SessionContext.Provider value={session}>
     <div>
       <Navbar />
-      <Map stations={stations} />
+      <Map />
     </div>
+      </SessionContext.Provider>
   );
 }
 

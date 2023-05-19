@@ -1,4 +1,5 @@
 import React from "react";
+import LoginAndRegister from "./loginAndRegister";
 
 export const Navbar = () => {
   return (
@@ -46,7 +47,7 @@ export const Navbar = () => {
                   aria-current="page"
                   href="#"
                 >
-                  Registrate
+                  <LoginAndRegister />
                 </a>
               </li>
             </ul>
