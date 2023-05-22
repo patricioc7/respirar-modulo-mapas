@@ -1,11 +1,14 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
+import {apiClient} from "../../services/apiClient";
+import {SessionContext} from "../../context/sessionContext";
 
-export const Map = ({ stations }) => {
-  // default on Buenos Aires (if user does not accept location access request
+export const Map = () => {
+  const [stations, setStations] = useState([]);
+  // default on Buenos Aires (if user does not accept location access request)
   const [coords, setCoords] = useState({
     latitude: "-34.58638551527179",
     longitude: "-58.40026132075488",
@@ -16,6 +19,14 @@ export const Map = ({ stations }) => {
     maximumAge: 30000,
     timeout: 27000,
   };
+
+  const session = useContext(SessionContext);
+
+  useEffect(() => {
+    apiClient.getStations(session).then((response) => {
+      setStations(response.data);
+    });
+  }, []);
 
   const error = (err) => {
     if (
@@ -35,7 +46,7 @@ export const Map = ({ stations }) => {
       error,
       options
     );
-  });
+  }, []);
 
   const centerMapOnUserLocation = (position) => {
     setCoords({
@@ -71,7 +82,6 @@ export const Map = ({ stations }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {stations.map((station) => {
-        console.log(station);
         return (
           // TODO hacer bien este markup que es horrible
           <Marker
