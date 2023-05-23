@@ -28,22 +28,12 @@ export const Navbar = () => {
         <Offcanvas show={show} onHide={handleClose} placement='end'
                    className='fondo-menu, bg-primary'
         >
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>  Menú</Offcanvas.Title>
+          <Offcanvas.Header className="box-Menu" closeButton>
+            <p className="box-MenuText">Menú</p>
           </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div className="">
-              <ul className="box-registro">
-                <li className="">
-                  <a
-                      className="fs-3 texto"
-                      aria-current="page"
-                      href="#"
-                  >
                     <LoginAndRegister />
-                  </a>
-                </li>
-              </ul>
+          <Offcanvas.Body className="fondo-menu">
+            <div className="">
               <form className="d-flex mt-3 box-buscador" role="search">
                 <input
                     className="box me-2"

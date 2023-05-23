@@ -43,22 +43,27 @@ const LoginAndRegister = () => {
       {session ? (
           <Button onClick={handleLogout}>Logout</Button>
       ) : (
-          <Button variant="link" onClick={() => setShowLoginModal(true)}>
-            Login
-          </Button>
+          <div className="box-registro">
+          <p className="texto" onClick={() => setShowLoginModal(true)}>
+            Iniciá sesión
+          </p>
+          </div>
       )}
 
-      <Modal show={showLoginModal} onHide={handleCloseModals}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
+      <Modal className="modal" show={showLoginModal} onHide={handleCloseModals}>
+        <Modal.Header className="bg-secondary" closeButton>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-primary">
+          <div className="container-fluid row">
+          <div className="col-6 icon-login">
+          </div>
+          <div className="col-6">
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control
+              <Form.Label className="loginText">Email:</Form.Label>
+              <input
+                className="inputLogin"
                 type="text"
-                placeholder="email"
                 onChange={(e) =>
                   setUsername( e.target.value)
                 }
@@ -66,28 +71,24 @@ const LoginAndRegister = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password:</Form.Label>
-              <Form.Control
+              <Form.Label className="loginText">Password:</Form.Label>
+              <input
+                className="inputLogin"
                 type="password"
-                placeholder="Password"
                 onChange={(e) =>
                   setPassword(e.target.value)
                 }
               />
             </Form.Group>
+            <button className="buttonLogin" onClick={handleLogin}>
+          </button>
           </Form>
+          </div>
+          </div>
           {loginError && (
             <Alert variant="danger">Credenciales incorrectas.</Alert>
           )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModals}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleLogin}>
-            Login
-          </Button>
-        </Modal.Footer>
       </Modal>
 
     </>
