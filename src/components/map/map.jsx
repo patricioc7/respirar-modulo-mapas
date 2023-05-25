@@ -5,6 +5,7 @@ import icon from "../../images/pinIcon.png";
 import L from "leaflet";
 import {apiClient} from "../../services/apiClient";
 import {SessionContext} from "../../context/sessionContext";
+import {MapPopup} from "./mapPopup";
 
 export const Map = () => {
   const [stations, setStations] = useState([]);
@@ -92,15 +93,7 @@ export const Map = () => {
             ]}
           >
             <Popup>
-              <span>Estación: {station.name}</span> <br />
-              <span>Temperatura: {station.temperature}ºC</span>
-              <br />
-              <span>Calidad pm1: {station.pm1}</span>
-              <br />
-              <span>Calidad pm10: {station.pm10}</span>
-              <br />
-              <span>Calidad pm25: {station.pm25}</span>
-              <br />
+              <MapPopup station={station} />
             </Popup>
           </Marker>
         );
