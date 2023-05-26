@@ -17,7 +17,6 @@ function App() {
         longitude: "-58.40026132075488",
     });
 
-
     useEffect(() => {
         apiClient.getStations(session).then((response) => {
             setStations(response.data);
@@ -30,10 +29,13 @@ function App() {
 
   return (
       <SessionContext.Provider value={session}>
-    <div>
-      <Navbar stations={stations} setCoords={setCoords} />
-      <Map stations={stations} coords={coords} setCoords={setCoords} />
-    </div>
+        <div>
+          <Navbar stations={stations} setCoords={setCoords} />
+            <div className="map-container">
+
+                <Map stations={stations} coords={coords} setCoords={setCoords} />
+            </div>
+        </div>
       </SessionContext.Provider>
   );
 }

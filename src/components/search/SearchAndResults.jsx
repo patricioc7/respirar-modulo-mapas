@@ -10,11 +10,11 @@ export const SearchAndResults = ({stations, setCoords}) => {
     const [foundStations, setFoundStations] = useState([]);
 
     const handleSearch = () => {
-        console.log(searchWords)
         if(searchWords) {
-            let filteredStations = stations.filter(station => station.name.toLowerCase().includes(searchWords.toLowerCase()));
+            const filteredStations = stations.filter(station => station.name.toLowerCase().includes(searchWords.toLowerCase()));
             setFoundStations(filteredStations)
-            console.log(filteredStations)
+        } else {
+            setFoundStations([])
         }
     }
 
@@ -32,13 +32,13 @@ export const SearchAndResults = ({stations, setCoords}) => {
     return (
         <div className="">
             <Form>
-                <Row className="mb-2">
-                <Form.Group as={Col} className="mb-3 me-2" controlId="search">
-                    <Form.Control onKeyDown={e => { handleKeyDown(e)}} onChange={e => setSearchWords(e.target.value )}  type="text" placeholder="Buscá tu estación" />
+                <Row className="mb-2 box-buscador">
+                <Form.Group as={Col} className="mb-3 me-2 " controlId="search">
+                    <Form.Control className="box" onKeyDown={e => { handleKeyDown(e)}} onChange={e => setSearchWords(e.target.value )}  type="text" placeholder="Buscá tu estación" />
                     <Form.Text  />
                 </Form.Group>
                     <Form.Group as={Col} className="mb-3" controlId="search">
-                <Button onClick={handleSearch} variant="primary" type="button" >
+                <Button onClick={handleSearch} variant="primary" type="button" className="boton">
                     Buscar
                 </Button>
                     </Form.Group>
