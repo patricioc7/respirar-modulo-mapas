@@ -10,6 +10,7 @@ function App() {
 
     const [stations, setStations] = useState([]);
     const [session, setSession] = useState(getSessionCookie());
+    const [onlyMyStations, setOnlyMyStations] = useState(false);
 
     // default on Buenos Aires (if user does not accept location access request)
     const [coords, setCoords] = useState({
@@ -18,22 +19,21 @@ function App() {
     });
 
     useEffect(() => {
-        apiClient.getStations(session).then((response) => {
+        apiClient.getStations(session?.token, onlyMyStations).then((response) => {
             setStations(response.data);
         });
-    }, []);
+    }, [onlyMyStations]);
 
     useEffect(() => {
         setSession(getSessionCookie());
-    }, [session]);
+    }, [session?.token]);
 
   return (
       <SessionContext.Provider value={session}>
         <div>
-          <Navbar stations={stations} setCoords={setCoords} />
+          <Navbar stations={stations} setCoords={setCoords} setOnlyMyStations={setOnlyMyStations} onlyMyStations={onlyMyStations}/>
             <div className="map-container">
-
-                <Map stations={stations} coords={coords} setCoords={setCoords} />
+                <Map stations={stations} coords={coords} setCoords={setCoords}/>
             </div>
         </div>
       </SessionContext.Provider>

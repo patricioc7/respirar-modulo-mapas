@@ -1,12 +1,9 @@
-import { Parser } from '@json2csv/plainjs';
+import {Parser} from '@json2csv/plainjs';
 
 const transformToCsv = (data) => {
     try {
-        const opts = {};
-        const parser = new Parser(opts);
-        const csv = parser.parse(data);
-        console.log(csv);
-        return csv
+        const parser = new Parser({});
+        return parser.parse(data)
     } catch (err) {
         console.error(err);
     }

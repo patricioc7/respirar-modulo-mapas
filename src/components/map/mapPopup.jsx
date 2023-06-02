@@ -15,7 +15,6 @@ export const MapPopup = ({station}) => {
 
     const handleHistoryModalOpen = () => {
         apiClient.retrieveHistory(station.id, time, parameter).then((response) => {
-            console.log(response.data);
             setStationHistory(response.data)
             setShowLoginModal(true);
         })

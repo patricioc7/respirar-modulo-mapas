@@ -25,7 +25,7 @@ ChartJS.register(
 
 export function CustomChart({historyData, stationName, parameter, time}) {
     const handleDownloadData = () => {
-        const fileName = `${stationName} ${parameter} by ${time}.csv`;
+        const fileName = `${stationName} - ${parameter} by ${time}.csv`;
         console.log(historyData.values)
         const csv = transformToCsv(historyData.values);
         if (window.navigator.msSaveOrOpenBlob) {

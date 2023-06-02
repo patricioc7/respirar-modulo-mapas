@@ -3,7 +3,7 @@ import LoginAndRegister from "./loginAndRegister";
 import {Button, Offcanvas} from "react-bootstrap";
 import {SearchAndResults} from "../search/SearchAndResults";
 
-export const Navbar = ({stations, setCoords}) => {
+export const Navbar = ({stations, setCoords, setOnlyMyStations, onlyMyStations}) => {
 
   const [show, setShow] = useState(false);
 
@@ -32,7 +32,7 @@ export const Navbar = ({stations, setCoords}) => {
           <Offcanvas.Header className="box-Menu" closeButton>
             <p className="box-MenuText">Menú</p>
           </Offcanvas.Header>
-            <LoginAndRegister />
+            <LoginAndRegister setOnlyMyStations={setOnlyMyStations} onlyMyStations={onlyMyStations}/>
           <Offcanvas.Body className="fondo-menu">
              <SearchAndResults stations={stations} setCoords={setCoords}/>
           </Offcanvas.Body>

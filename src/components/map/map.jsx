@@ -13,8 +13,6 @@ export const Map = ({stations, coords, setCoords}) => {
     timeout: 27000,
   };
 
-
-
   const error = (err) => {
     if (
       err.code === 1 || //if user denied accessing the location

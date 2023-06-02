@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
 
 export const setSessionCookie = (session) => {
+  console.log(session)
   Cookies.remove("session");
-  Cookies.set("session", session, { expires: 14 });
+  Cookies.set("session", JSON.stringify(session), { expires: 14 });
 };
 
 export const getSessionCookie = () => {
@@ -11,8 +12,8 @@ export const getSessionCookie = () => {
   if (sessionCookie === undefined) {
     return undefined;
   } else {
-    console.log(sessionCookie);
-    return sessionCookie;
+    console.log(sessionCookie)
+    return JSON.parse(sessionCookie);
   }
 };
 
