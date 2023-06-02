@@ -10,6 +10,8 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import {Button} from "react-bootstrap";
+import {transformToCsv} from "../../services/jsonToCsvConverter";
 
 ChartJS.register(
     CategoryScale,
@@ -21,7 +23,25 @@ ChartJS.register(
     Legend
 );
 
-export function CustomChart({historyData, stationName}) {
+export function CustomChart({historyData, stationName, parameter, time}) {
+    const handleDownloadData = () => {
+        const fileName = `${stationName} ${parameter} by ${time}.csv`;
+        console.log(historyData.values)
+        const csv = transformToCsv(historyData.values);
+        if (window.navigator.msSaveOrOpenBlob) {
+            const blob = new Blob([csv]);
+            window.navigator.msSaveOrOpenBlob(blob, fileName);
+        } else {
+            const a = document.createElement('a');
+            a.href = 'data:attachment/csv,' +  encodeURIComponent(csv);
+            a.target = '_blank';
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+        }
+    }
+
+
     const values = historyData.values
 
     const data = {
@@ -49,5 +69,8 @@ export function CustomChart({historyData, stationName}) {
         },
     };
 
-    return <Line options={options} data={data} />;
+    return <>
+        <Line options={options} data={data} />
+        <Button onClick={handleDownloadData}>Descargar como CSV</Button>
+    </>;
 }

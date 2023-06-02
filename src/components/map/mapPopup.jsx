@@ -10,8 +10,8 @@ import Row from 'react-bootstrap/Row';
 export const MapPopup = ({station}) => {
     const [stationHistory, setStationHistory] = useState({});
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [parameter, setParameter] = useState("");
-    const [time, setTime] = useState("");
+    const [parameter, setParameter] = useState("temperature");
+    const [time, setTime] = useState("day");
 
     const handleHistoryModalOpen = () => {
         apiClient.retrieveHistory(station.id, time, parameter).then((response) => {
@@ -71,7 +71,7 @@ export const MapPopup = ({station}) => {
                         </Form.Select>
                     </Form.Group>
                 </Row>
-                <CustomChart historyData={stationHistory} stationName={station.name}/>
+                <CustomChart historyData={stationHistory} stationName={station.name} parameter={parameter} time={time}/>
             </Modal.Body>
         </Modal>
         </>)
