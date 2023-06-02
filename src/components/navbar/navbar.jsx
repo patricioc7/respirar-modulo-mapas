@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import LoginAndRegister from "./loginAndRegister";
 import {Button, Offcanvas} from "react-bootstrap";
+import {SearchAndResults} from "../search/SearchAndResults";
 
-export const Navbar = () => {
+export const Navbar = ({stations, setCoords}) => {
 
   const [show, setShow] = useState(false);
 
@@ -31,23 +32,10 @@ export const Navbar = () => {
           <Offcanvas.Header className="box-Menu" closeButton>
             <p className="box-MenuText">Menú</p>
           </Offcanvas.Header>
-                    <LoginAndRegister />
+            <LoginAndRegister />
           <Offcanvas.Body className="fondo-menu">
-            <div className="">
-              <form className="d-flex mt-3 box-buscador" role="search">
-                <input
-                    className="box me-2"
-                    type="search"
-                    placeholder="Buscá tu estación"
-                    aria-label="Search"
-                />
-                <button className="boton" type="submit">
-                  Buscar
-                </button>
-              </form>
-            </div>
+             <SearchAndResults stations={stations} setCoords={setCoords}/>
           </Offcanvas.Body>
-
         </Offcanvas>
       </div>
     </nav>

@@ -3,17 +3,9 @@ import React, {useContext, useEffect, useState} from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
-import {apiClient} from "../../services/apiClient";
-import {SessionContext} from "../../context/sessionContext";
 import {MapPopup} from "./mapPopup";
 
-export const Map = () => {
-  const [stations, setStations] = useState([]);
-  // default on Buenos Aires (if user does not accept location access request)
-  const [coords, setCoords] = useState({
-    latitude: "-34.58638551527179",
-    longitude: "-58.40026132075488",
-  });
+export const Map = ({stations, coords, setCoords}) => {
 
   const options = {
     enableHighAccuracy: true,
@@ -21,13 +13,7 @@ export const Map = () => {
     timeout: 27000,
   };
 
-  const session = useContext(SessionContext);
 
-  useEffect(() => {
-    apiClient.getStations(session).then((response) => {
-      setStations(response.data);
-    });
-  }, []);
 
   const error = (err) => {
     if (
