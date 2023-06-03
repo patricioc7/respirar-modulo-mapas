@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import LoginAndRegister from "./loginAndRegister";
+import Login from "./login";
 import {Button, Offcanvas} from "react-bootstrap";
 import {SearchAndResults} from "../search/SearchAndResults";
 
@@ -32,7 +32,7 @@ export const Navbar = ({stations, setCoords, setOnlyMyStations, onlyMyStations})
           <Offcanvas.Header className="box-Menu" closeButton>
             <p className="box-MenuText">Menú</p>
           </Offcanvas.Header>
-            <LoginAndRegister setOnlyMyStations={setOnlyMyStations} onlyMyStations={onlyMyStations}/>
+            <Login setOnlyMyStations={setOnlyMyStations} onlyMyStations={onlyMyStations}/>
           <Offcanvas.Body className="fondo-menu">
              <SearchAndResults stations={stations} setCoords={setCoords}/>
           </Offcanvas.Body>

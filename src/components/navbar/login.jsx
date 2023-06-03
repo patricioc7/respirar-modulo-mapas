@@ -9,7 +9,7 @@ import {
 import {apiClient} from "../../services/apiClient";
 import {SessionContext} from "../../context/sessionContext";
 
-const LoginAndRegister = ({setOnlyMyStations, onlyMyStations}) => {
+const Login = ({setOnlyMyStations, onlyMyStations}) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -51,27 +51,27 @@ const LoginAndRegister = ({setOnlyMyStations, onlyMyStations}) => {
     <>
       {session ? (
           <>
-            <span className="loginText">{session.username} <Button onClick={handleLogout}>Logout</Button></span>
-            <div className='myStationsContainer'>
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label className="loginText">Mostrar solo mis estaciones</Form.Label>
-                  <Form.Check // prettier-ignore
-                      id={`default-checkbox`}
-                      label={`Mostrar solo mis estaciones`}
-                  >
-                    <Form.Check.Input
+            <div className="loggedInMenu">
+              <span className="loginText">{session.username} <Button className='logoutButton loginButtons' variant="link" size="sm" onClick={handleLogout}>Logout</Button></span>
+              <div className='myStationsContainer'>
+                <Form>
+                  <div className="mb-2 whiteText">
+                    <Form.Check
+                        id={`default-checkbox`}
+                        label={`Mostrar solo mis estaciones`}
                         checked={onlyMyStations}
                         onChange={e => handleOnlyMyStationsClick(e)}
-                    />
-                  </Form.Check>
-                </Form.Group>
-              </Form>
+                    >
+                    </Form.Check>
+                  </div>
+                </Form>
+              </div>
             </div>
+
           </>
       ) : (
           <div className="box-registro">
-            <Button className="texto" onClick={() => setShowLoginModal(true)}>
+            <Button variant="primary" className='loginButton loginButtons' onClick={() => setShowLoginModal(true)}>
               Iniciá sesión
             </Button>
           </div>
@@ -122,4 +122,4 @@ const LoginAndRegister = ({setOnlyMyStations, onlyMyStations}) => {
   );
 };
 
-export default LoginAndRegister;
+export default Login;
