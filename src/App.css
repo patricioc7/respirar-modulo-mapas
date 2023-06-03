@@ -46,9 +46,9 @@
 }
 
 .box-registro {
-  padding-top: 30px;
+  padding-top: 17px;
   padding-bottom: 20px;
-  padding-left: 8px;
+  padding-left: 16px;
   list-style: none;
   background-color: #8883d7;
   transition: 0.6s;
@@ -68,10 +68,10 @@
   transition: 0.6s;
 }
 
-.box-registro:hover .texto{
-  color: #8883d7;
-  padding-left: 30px;
-  transition: 0.6s;
+.box-registro:hover .loginButton{
+  color: #8883d7 !important;
+  padding-left: 30px !important;
+  transition: 0.6s !important;
 }
 
 .box-buscador{
@@ -140,7 +140,7 @@ h5 {
   font-family: 'GothamLight';
 }
 
-.inputLogin::placeholder{
+.inputLogin::placeholder, .whiteText{
   color: white;
 }
 
@@ -168,4 +168,31 @@ h5 {
 
 .pinResultado {
   width: 10px;
+}
+
+.loggedInMenu {
+  padding: 15px 5px 10px 17px;
+  background-color: #8883d7;
+}
+
+.myStationsContainer{
+  padding-top: 10px;
+}
+
+.loginButtons {
+  padding: 0 !important;
+  font-size: 13px !important;
+  border: 0 !important;
+  font-family: "GothamBold" !important;
+}
+
+.logoutButton {
+  color: white !important;
+
+  font-size: 13px !important;
+}
+
+.loginButton {
+  background-color: transparent !important;
+  font-size: 30px !important;
 }

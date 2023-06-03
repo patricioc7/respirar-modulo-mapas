@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
@@ -12,8 +12,6 @@ export const Map = ({stations, coords, setCoords}) => {
     maximumAge: 30000,
     timeout: 27000,
   };
-
-
 
   const error = (err) => {
     if (

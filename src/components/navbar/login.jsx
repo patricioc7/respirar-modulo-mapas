@@ -1,7 +1,7 @@
 import { Alert, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   setSessionCookie,
   deleteSessionCookie,
@@ -9,7 +9,7 @@ import {
 import {apiClient} from "../../services/apiClient";
 import {SessionContext} from "../../context/sessionContext";
 
-const LoginAndRegister = () => {
+const Login = ({setOnlyMyStations, onlyMyStations}) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -22,15 +22,19 @@ const LoginAndRegister = () => {
     setLoginError(false);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     apiClient
       .login({username, password})
       .then((response) => {
-        setSessionCookie(response.data.token);
+        setSessionCookie(response.data);
         window.location.reload();
         setShowLoginModal(false);
       })
-      .catch((_error) => setLoginError(true));
+      .catch((_error) => {
+        console.log(_error)
+        setLoginError(true)
+      });
   };
 
   const handleLogout = () => {
@@ -38,15 +42,38 @@ const LoginAndRegister = () => {
     window.location.reload();
   };
 
+  const handleOnlyMyStationsClick =  (e) => {
+    console.log(e.target.checked)
+    setOnlyMyStations(e.target.checked)
+  }
+
   return (
     <>
       {session ? (
-          <Button onClick={handleLogout}>Logout</Button>
+          <>
+            <div className="loggedInMenu">
+              <span className="loginText">{session.username} <Button className='logoutButton loginButtons' variant="link" size="sm" onClick={handleLogout}>Logout</Button></span>
+              <div className='myStationsContainer'>
+                <Form>
+                  <div className="mb-2 whiteText">
+                    <Form.Check
+                        id={`default-checkbox`}
+                        label={`Mostrar solo mis estaciones`}
+                        checked={onlyMyStations}
+                        onChange={e => handleOnlyMyStationsClick(e)}
+                    >
+                    </Form.Check>
+                  </div>
+                </Form>
+              </div>
+            </div>
+
+          </>
       ) : (
           <div className="box-registro">
-          <p className="texto" onClick={() => setShowLoginModal(true)}>
-            Iniciá sesión
-          </p>
+            <Button variant="primary" className='loginButton loginButtons' onClick={() => setShowLoginModal(true)}>
+              Iniciá sesión
+            </Button>
           </div>
       )}
 
@@ -80,7 +107,7 @@ const LoginAndRegister = () => {
                 }
               />
             </Form.Group>
-            <button className="buttonLogin" onClick={handleLogin}>
+            <button className="buttonLogin" onClick={event => handleLogin(event)}>
           </button>
           </Form>
           </div>
@@ -95,4 +122,4 @@ const LoginAndRegister = () => {
   );
 };
 
-export default LoginAndRegister;
+export default Login;

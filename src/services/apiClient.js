@@ -4,11 +4,12 @@ const baseURL = process.env.REACT_APP_STATIONS_SERVICE_BASE_URL
 
 const apiClient = {
 
-    getStations : async (jwt) => {
+    getStations : async (jwt, onlyMyStations) => {
         const stations = "/stations"
         let getStationsURL =  baseURL + stations
-        if(jwt) {
+        if(jwt && onlyMyStations) {
             getStationsURL = getStationsURL + "?onlyUserStations=true"
+            console.log(jwt)
             return axios.get(getStationsURL, {
                 headers: {
                     Authorization: jwt,
