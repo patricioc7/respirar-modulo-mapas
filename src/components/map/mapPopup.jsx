@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Button} from "react-bootstrap";
+import { Button, ModalDialog} from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import {apiClient} from "../../services/apiClient";
 import {CustomChart} from "../charts/charts";
@@ -47,13 +47,25 @@ export const MapPopup = ({station}) => {
     </div>
 
         <Modal className="modal" show={showLoginModal} onHide={() => setShowLoginModal(false)}>
-            <Modal.Header className="bg-secondary" closeButton>
+            <Modal.Header className="historicHeader" closeButton>
             </Modal.Header>
-            <Modal.Body className="bg-primary">
+            <Modal.Body className="historicBody">
+                <Row className="justify-content-center">
+                <p className="historicBody-p">Datos Históricos</p>
+                </Row>
+                <Row className="mb-2">
+                <Row className="justify-content-center col-6">
+                <img className="clockGif col-2" src="../../../../reloj.gif" alt="Reloj" />
+                <p className="col-6 mt-1 historicBody-p-child">Tiempo</p>
+                </Row>
+                <Row className="justify-content-center col-6">
+                <img className="clockGif col-2" src="../../../../parameters.gif" alt="Reloj"/>
+                <p className="col-6 mt-1 historicBody-p-child">Parámetro</p>    
+                </Row>
+                </Row>
                 <Row className="mb-2">
                     <Form.Group as={Col}>
                         <Form.Select size="sm" onChange={(e) => handleChangeOnControls('time', e.target.value)}>
-                            <option>Tiempo</option>
                             <option value="DIA">Día</option>
                             <option value="MES">Mes</option>
                             <option value="ANO">Año</option>
@@ -62,7 +74,6 @@ export const MapPopup = ({station}) => {
 
                     <Form.Group as={Col}>
                         <Form.Select size="sm" onChange={(e) => handleChangeOnControls('parameter', e.target.value)}>
-                            <option>Parámetro</option>
                             <option value="temperature">Temperatura</option>
                             <option value="qualitypm1">Calidad PM1</option>
                             <option value="qualitypm10">Calidad PM10</option>

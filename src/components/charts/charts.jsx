@@ -69,8 +69,15 @@ export function CustomChart({historyData, stationName, parameter, time}) {
         },
     };
 
+    const buttonStyles = {
+        backgroundColor: '#00ce7c',
+        marginLeft:'220px',
+        marginTop:'50px',
+        fontFamily:'GothamBold'
+      };
+
     return <>
         <Line options={options} data={data} />
-        <Button onClick={handleDownloadData}>Descargar como CSV</Button>
+        <Button style={buttonStyles} onClick={handleDownloadData}>Descargar como CSV</Button>
     </>;
 }

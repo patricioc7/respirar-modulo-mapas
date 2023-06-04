@@ -163,7 +163,12 @@ h5 {
 }
 
 .modal{
-  position: center;
+  overflow: hidden;
+  height: 900px;
+}
+
+.modal .modal-content {
+  background-color: transparent;
 }
 
 .pinResultado {
@@ -196,3 +201,63 @@ h5 {
   background-color: transparent !important;
   font-size: 30px !important;
 }
+
+.historicBody {
+  width: 700px;
+  height: 648px;
+  background-color: #1e1a33;
+
+  @media ((min-width: 1474px)){
+  margin-left: -490px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  margin-bottom: -30px;
+}
+
+  @media ((min-width: 1200px) and (max-width:1473px)){
+  margin-left: -440px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  margin-bottom:-30px;
+}
+}
+
+
+
+.historicBody-p {
+ font-family: "GothamBold";
+ font-size: 30px;
+ color: white;
+}
+
+.historicHeader{
+  width: 700px;
+  background-color: #00ce7c;
+  
+  @media (((min-width: 1474px))){
+  margin-left: -490px;
+  margin-top:-30px;
+  margin-bottom:-30px;
+}
+  @media ((min-width: 1200px) and (max-width:1473px)){
+  margin-left: -440px;
+  margin-top:-30px;
+  margin-bottom:-30px;
+}
+}
+
+.buttonCsv{
+  background-color: #00ce7c;
+  font-family: 'GothamBold';
+}
+
+.historicBody-p-child {
+  font-family: "GothamBold";
+  font-size: 15px;
+  color: white;
+ }
+
+ .clockGif{
+  width: 30px;
+  height: 30px;
+ }

@@ -77,7 +77,7 @@ const Login = ({setOnlyMyStations, onlyMyStations}) => {
           </div>
       )}
 
-      <Modal className="modal" show={showLoginModal} onHide={handleCloseModals}>
+      <Modal show={showLoginModal} onHide={handleCloseModals}>
         <Modal.Header className="bg-secondary" closeButton>
         </Modal.Header>
         <Modal.Body className="bg-primary">
