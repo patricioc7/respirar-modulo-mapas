@@ -9,13 +9,18 @@ import Row from 'react-bootstrap/Row';
 import {getSessionCookie} from "../../services/sessionCookie";
 
 export const MapPopup = ({station}) => {
+    const today = new Date().toISOString().split('T')[0]
     const [stationHistory, setStationHistory] = useState({});
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [fromDate, setFromDate] = useState(new Date().toISOString().split('T')[0]);
-    const [toDate, setToDate] = useState(new Date().toISOString().split('T')[0]);
+    const [toDate, setToDate] = useState(today);
     const [parameter, setParameter] = useState("temperature");
 
     const fetchHistoryData = () => {
+        if(new Date(fromDate) > new Date(toDate)){
+            alert('La "hasta" desde no puede ser anterior a la fecha "desde"')
+            return;
+        }
         apiClient.retrieveHistory(station.id, fromDate, toDate, parameter).then((response) => {
             setStationHistory(response.data)
         })
@@ -49,6 +54,7 @@ export const MapPopup = ({station}) => {
                         <Form.Control
                             type="date"
                             name="datepic"
+                            max={today}
                             placeholder="DateRange"
                             value={fromDate}
                             onChange={(e) => setFromDate(e.target.value)}
@@ -59,6 +65,7 @@ export const MapPopup = ({station}) => {
                             type="date"
                             name="datepic"
                             placeholder="DateRange"
+                            max={today}
                             value={toDate}
                             onChange={(e) => setToDate(e.target.value)}
                         />
