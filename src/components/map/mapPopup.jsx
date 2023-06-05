@@ -11,9 +11,9 @@ import {getSessionCookie} from "../../services/sessionCookie";
 export const MapPopup = ({station}) => {
     const [stationHistory, setStationHistory] = useState({});
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [fromDate, setFromDate] = useState(new Date());
-    const [toDate, setToDate] = useState(new Date());
-    const [parameter, setParameter] = useState("SO2");
+    const [fromDate, setFromDate] = useState(new Date().toISOString().split('T')[0]);
+    const [toDate, setToDate] = useState(new Date().toISOString().split('T')[0]);
+    const [parameter, setParameter] = useState("temperature");
 
     const fetchHistoryData = () => {
         apiClient.retrieveHistory(station.id, fromDate, toDate, parameter).then((response) => {
@@ -28,17 +28,17 @@ export const MapPopup = ({station}) => {
 
     return (<>
         <div>
-        <span>Estación: {station.name}</span> <br/>
-        <span>Temperatura: {station.temperature}ºC</span>
-        <br/>
-        <span>Calidad pm1: {station.pm1}</span>
-        <br/>
-        <span>Calidad pm10: {station.pm10}</span>
-        <br/>
-        <span>Calidad pm25: {station.pm25}</span>
-        <br/>
-        <Button onClick={() => setShowLoginModal(true)}>Ver datos históricos</Button>
-    </div>
+            <span>Estación: {station.name}</span> <br/>
+            <span>Temperatura: {station.temperature}ºC</span>
+            <br/>
+            <span>Calidad pm1: {station.pm1}</span>
+            <br/>
+            <span>Calidad pm10: {station.pm10}</span>
+            <br/>
+            <span>Calidad pm25: {station.pm25}</span>
+            <br/>
+            <Button onClick={() => setShowLoginModal(true)}>Ver datos históricos</Button>
+        </div>
 
         <Modal className="modal" show={showLoginModal} onHide={() => setShowLoginModal(false)}>
             <Modal.Header className="bg-secondary" closeButton>
@@ -66,7 +66,6 @@ export const MapPopup = ({station}) => {
 
                     <Form.Group as={Col}>
                         <Form.Select size="sm" onChange={(e) => setParameter(e.target.value)}>
-                            <option>Parámetro</option>
                             <option value="temperature">Temperatura</option>
                             <option value="qualitypm1">Calidad PM1</option>
                             <option value="qualitypm10">Calidad PM10</option>
