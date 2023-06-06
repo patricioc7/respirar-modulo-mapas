@@ -23,11 +23,12 @@ const apiClient = {
         return axios.post(`${baseURL}/users/login`, body);
     },
 
-    retrieveHistory : async (stationId, time, parameter) => {
+    retrieveHistory : async (stationId, fromDate, toDate, parameter) => {
         return axios.get(`${baseURL}/stations/history`, {
             params: {
                 stationId,
-                time,
+                fromDate,
+                toDate,
                 parameter
             }
         });
