@@ -1,22 +1,26 @@
 import React, {useState} from "react";
-import { Button, ModalDialog} from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
+import { Button} from "react-bootstrap";
 import {apiClient} from "../../services/apiClient";
 import {CustomChart} from "../charts/charts";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
+import {CustomModal} from "./customModal";
+import {useModal} from './useModals'
+import "./modal.css"
+
+
 export const MapPopup = ({station}) => {
-    const [stationHistory, setStationHistory] = useState({});
-    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [stationHistory, setStationHistory] = useState([]);
+    const [isOpen, openModal, closeModal] = useModal(false);
     const [parameter, setParameter] = useState("temperature");
     const [time, setTime] = useState("day");
 
     const handleHistoryModalOpen = () => {
         apiClient.retrieveHistory(station.id, time, parameter).then((response) => {
             setStationHistory(response.data)
-            setShowLoginModal(true);
+            openModal()
         })
     }
 
@@ -31,8 +35,10 @@ export const MapPopup = ({station}) => {
         handleHistoryModalOpen()
     }
 
+    
 
     return (<>
+        
         <div>
         <span>Estación: {station.name}</span> <br/>
         <span>Temperatura: {station.temperature}ºC</span>
@@ -43,46 +49,33 @@ export const MapPopup = ({station}) => {
         <br/>
         <span>Calidad pm25: {station.pm25}</span>
         <br/>
-        <Button onClick={() => handleHistoryModalOpen()}>Ver datos históricos</Button>
-    </div>
+        <Button onClick={() => handleChangeOnControls()}>Ver datos históricos</Button>
+        </div>
 
-        <Modal className="modal" show={showLoginModal} onHide={() => setShowLoginModal(false)}>
-            <Modal.Header className="historicHeader" closeButton>
-            </Modal.Header>
-            <Modal.Body className="historicBody">
-                <Row className="justify-content-center">
-                <p className="historicBody-p">Datos Históricos</p>
-                </Row>
-                <Row className="mb-2">
-                <Row className="justify-content-center col-6">
-                <img className="clockGif col-2" src="../../../../reloj.gif" alt="Reloj" />
-                <p className="col-6 mt-1 historicBody-p-child">Tiempo</p>
-                </Row>
-                <Row className="justify-content-center col-6">
-                <img className="clockGif col-2" src="../../../../parameters.gif" alt="Reloj"/>
-                <p className="col-6 mt-1 historicBody-p-child">Parámetro</p>    
-                </Row>
-                </Row>
-                <Row className="mb-2">
-                    <Form.Group as={Col}>
-                        <Form.Select size="sm" onChange={(e) => handleChangeOnControls('time', e.target.value)}>
-                            <option value="DIA">Día</option>
-                            <option value="MES">Mes</option>
-                            <option value="ANO">Año</option>
-                        </Form.Select>
-                    </Form.Group>
+        <CustomModal isOpen={isOpen} closeModal={closeModal}>
+        <Row className="mb-2">
+                <Form.Group as={Col}>
+                    <Form.Select size="sm" onChange={(e) => handleChangeOnControls('time', e.target.value)}>
+                        <option>Tiempo</option>
+                        <option value="DIA">Día</option>
+                        <option value="MES">Mes</option>
+                        <option value="ANO">Año</option>
+                    </Form.Select>
+                </Form.Group>
 
-                    <Form.Group as={Col}>
-                        <Form.Select size="sm" onChange={(e) => handleChangeOnControls('parameter', e.target.value)}>
-                            <option value="temperature">Temperatura</option>
-                            <option value="qualitypm1">Calidad PM1</option>
-                            <option value="qualitypm10">Calidad PM10</option>
-                            <option value="qualitypm25">Calidad PM25</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Row>
-                <CustomChart historyData={stationHistory} stationName={station.name} parameter={parameter} time={time}/>
-            </Modal.Body>
-        </Modal>
+                <Form.Group as={Col}>
+                    <Form.Select size="sm" onChange={(e) => handleChangeOnControls('parameter', e.target.value)}>
+                        <option>Parámetro</option>
+                        <option value="temperature">Temperatura</option>
+                        <option value="qualitypm1">Calidad PM1</option>
+                        <option value="qualitypm10">Calidad PM10</option>
+                        <option value="qualitypm25">Calidad PM25</option>
+                    </Form.Select>
+                </Form.Group>
+            </Row>
+        <CustomChart historyData={stationHistory} stationName={station.name} parameter={parameter} time={time}/>
+    </CustomModal>
+        
         </>)
+        
 }

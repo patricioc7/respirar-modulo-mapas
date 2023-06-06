@@ -77,7 +77,7 @@ export const Map = ({stations, coords, setCoords}) => {
             ]}
           >
             <Popup>
-              <MapPopup className="map-popup" station={station}></MapPopup>
+              <MapPopup station={station} />
             </Popup>
           </Marker>
         );

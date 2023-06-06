@@ -222,8 +222,6 @@ h5 {
 }
 }
 
-
-
 .historicBody-p {
  font-family: "GothamBold";
  font-size: 30px;
@@ -260,4 +258,10 @@ h5 {
  .clockGif{
   width: 30px;
   height: 30px;
+ }
+
+ .historicModal{
+  width: 1000px;
+  height: 1000px;
+  background-color: #1e1a33;
  }
