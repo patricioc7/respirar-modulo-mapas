@@ -24,14 +24,17 @@ const apiClient = {
     },
 
     retrieveHistory : async (stationId, fromDate, toDate, parameter) => {
-        return axios.get(`${baseURL}/stations/history`, {
+        return axios.get(`${baseURL}/stations/${stationId}/history`, {
             params: {
-                stationId,
                 fromDate,
                 toDate,
                 parameter
             }
         });
+    },
+
+    retrieveAvailableParameters : async (stationId) => {
+        return axios.get(`${baseURL}/stations/${stationId}/availableparams`)
     }
 }
 
