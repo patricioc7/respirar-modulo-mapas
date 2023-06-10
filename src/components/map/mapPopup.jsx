@@ -11,6 +11,7 @@ import {getSessionCookie} from "../../services/sessionCookie";
 export const MapPopup = ({station}) => {
     const today = new Date().toISOString().split('T')[0]
     const [stationHistory, setStationHistory] = useState({});
+    const [availableParams, setAvailableParams] = useState([]);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [fromDate, setFromDate] = useState(new Date().toISOString().split('T')[0]);
     const [toDate, setToDate] = useState(today);
@@ -18,7 +19,7 @@ export const MapPopup = ({station}) => {
 
     const fetchHistoryData = () => {
         if(new Date(fromDate) > new Date(toDate)){
-            alert('La "hasta" desde no puede ser anterior a la fecha "desde"')
+            alert('La fecha "hasta" no puede ser anterior a la fecha "desde"')
             return;
         }
         apiClient.retrieveHistory(station.id, fromDate, toDate, parameter).then((response) => {
@@ -26,7 +27,15 @@ export const MapPopup = ({station}) => {
         })
     }
 
+    const fetchAvailableParameters = () => {
+        apiClient.retrieveAvailableParameters(station.id).then((response) => {
+            console.log(response.data)
+            setAvailableParams(response.data)
+        })
+    }
+
     useEffect(() => {
+        fetchAvailableParameters()
         fetchHistoryData()
     }, []);
 
@@ -73,10 +82,10 @@ export const MapPopup = ({station}) => {
 
                     <Form.Group as={Col}>
                         <Form.Select size="sm" onChange={(e) => setParameter(e.target.value)}>
-                            <option value="temperature">Temperatura</option>
-                            <option value="qualitypm1">Calidad PM1</option>
-                            <option value="qualitypm10">Calidad PM10</option>
-                            <option value="qualitypm25">Calidad PM25</option>
+                            {availableParams.length && availableParams.map(parameter => {
+                                return (<option value={parameter}>{parameter}</option>)
+                            })}
+
                         </Form.Select>
                     </Form.Group>
                     <Form.Group as={Col}>
