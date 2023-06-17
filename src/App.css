@@ -139,10 +139,14 @@ h5 {
   background-position: center;
 }
 
-.loginText, .resultados, .modalTitle{
+.loginText, .resultados, .modalTitle, .noData {
   color: white;
   text-decoration: none;
   font-family: "GothamBold";
+}
+
+.noData {
+  font-size: 20px;
 }
 
 .inputLogin{
@@ -246,4 +250,14 @@ h5 {
 
 .contenerdorGrafico {
   padding-top: 20px;
+}
+
+.modal-content {
+  min-height: 586px;
+}
+
+.contenedorNoData {
+  width: 100%;
+  text-align: center;
+  padding-top: 200px;
 }

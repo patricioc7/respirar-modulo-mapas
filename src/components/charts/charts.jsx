@@ -47,8 +47,7 @@ export function CustomChart({historyData, stationName, parameter, fromDate, toDa
     const data = {
         labels: values.length ? values.map(value => {
             const date = new Date(value.date)
-            return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
+            return date.toLocaleString("es-AR");
         }) : ['No data'],
         datasets:  [
             {
@@ -81,7 +80,9 @@ export function CustomChart({historyData, stationName, parameter, fromDate, toDa
                 <div className='contenedorBotonDescarga'><Button className='botonDescargar' onClick={handleDownloadData}>Descargar como CSV</Button></div>
 
         </div>
-       ) : <p className='logoutButton'>No se encontraron datos para esta estación</p>
+       ) :
+            <div className="contenedorNoData"><p className='noData'>No se encontraron datos para esta estación.</p></div>
+
 
         }
     </>)
