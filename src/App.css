@@ -261,3 +261,7 @@ h5 {
   text-align: center;
   padding-top: 200px;
 }
+
+.leaflet-popup-content {
+  margin: 13px 20px !important;
+}
