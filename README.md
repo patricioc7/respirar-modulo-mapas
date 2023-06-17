@@ -60,10 +60,10 @@ REACT_APP_STATIONS_SERVICE_BASE_URL = {orion_url}
 #### 2- Crear imagen ####
 Estando en la raíz del proyecto, correr:
 ```bash
-$ docker build . -t respirar-web
+$ docker build . -t patricioc7/respirar-mapas-web
 ```
 
 #### 3- Correr imagen ####
 ```bash
-$ docker run -p 3000:3000 -d respirar-web
+$ docker run -p 3030:3030 -e REACT_APP_STATIONS_SERVICE_BASE_URL="http://host.docker.internal:3001" -d patricioc7/respirar-mapas-web
 ```

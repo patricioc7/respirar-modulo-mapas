@@ -42,7 +42,7 @@ export const MapPopup = ({station}) => {
                 <div className='detallesEstacion'>
                     <ListGroup>
                         <ListGroup.Item><strong>Temperatura:</strong> {station.temperature}ºC</ListGroup.Item>
-                        <ListGroup.Item><strong>Humedad relativa:</strong>  {station.humidity}</ListGroup.Item>
+                        <ListGroup.Item><strong>Humedad relativa:</strong>  {station.humidity ? (station.humidity * 100) : 0}%</ListGroup.Item>
                         <ListGroup.Item><strong>CO:</strong> {station.CO}</ListGroup.Item>
                         <ListGroup.Item><strong>Calidad pm1:</strong>  {station.pm1}</ListGroup.Item>
                         <ListGroup.Item><strong>Calidad pm10:</strong>  {station.pm10}</ListGroup.Item>
