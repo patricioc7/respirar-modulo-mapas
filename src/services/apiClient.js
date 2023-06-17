@@ -9,13 +9,18 @@ const apiClient = {
         let getStationsURL =  baseURL + stations
         if(jwt && onlyMyStations) {
             getStationsURL = getStationsURL + "?onlyUserStations=true"
-            console.log(jwt)
             return axios.get(getStationsURL, {
                 headers: {
                     Authorization: jwt,
                 },
             })
         }
+        return axios.get(getStationsURL)
+    },
+
+    getStation : async (stationId) => {
+        const stations = "/stations"
+        let getStationsURL =  baseURL + stations + "/" + stationId
         return axios.get(getStationsURL)
     },
 
@@ -30,12 +35,10 @@ const apiClient = {
                 toDate,
                 parameter
             }
-        });
+        })
     },
 
-    retrieveAvailableParameters : async (stationId) => {
-        return axios.get(`${baseURL}/stations/${stationId}/availableparams`)
-    }
+
 }
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,7 +10,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import {Button} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import {transformToCsv} from "../../services/jsonToCsvConverter";
 
 ChartJS.register(
@@ -23,10 +23,11 @@ ChartJS.register(
     Legend
 );
 
-export function CustomChart({historyData, stationName, parameter, time}) {
+export function CustomChart({historyData, stationName, parameter, fromDate, toDate}) {
+    const isSameDay = fromDate === toDate;
     const handleDownloadData = () => {
-        const fileName = `${stationName} - ${parameter} by ${time}.csv`;
-        console.log(historyData.values)
+        const timeTitle = isSameDay ? (` del día ${fromDate}`) : (`desde ${fromDate} hasta ${toDate}`)
+        const fileName = `${stationName} - ${parameter}  ${timeTitle}.csv`;
         const csv = transformToCsv(historyData.values);
         if (window.navigator.msSaveOrOpenBlob) {
             const blob = new Blob([csv]);
@@ -41,19 +42,22 @@ export function CustomChart({historyData, stationName, parameter, time}) {
         }
     }
 
-
-    const values = historyData.values
+    const values = historyData?.values
 
     const data = {
-        labels: values.map(value => new Date(value.date).getHours()),
-        datasets: [
+        labels: values.length ? values.map(value => {
+            const date = new Date(value.date)
+            return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+        }) : ['No data'],
+        datasets:  [
             {
-                label: historyData.label,
-                data: values.map(value => value.value),
+                label: historyData.label ? historyData.label : '',
+                data: values.length ? values.map(value => value.value) : [''],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
-        ],
+        ] ,
     }
 
     const options = {
@@ -64,13 +68,23 @@ export function CustomChart({historyData, stationName, parameter, time}) {
             },
             title: {
                 display: true,
-                text: historyData.label + ' de la estación ' + stationName,
+                text: historyData.label ? historyData.label + ' de la estación ' + stationName : 'No hay información acerca de esta estación',
             },
         },
     };
 
-    return <>
-        <Line options={options} data={data} />
-        <Button onClick={handleDownloadData}>Descargar como CSV</Button>
-    </>;
+    return(    <>
+        {values.length ? (   <div className='contenerdorGrafico'>
+                <Card>
+                    <Line options={options} data={data} />
+                </Card>
+                <div className='contenedorBotonDescarga'><Button className='botonDescargar' onClick={handleDownloadData}>Descargar como CSV</Button></div>
+
+        </div>
+       ) : <p className='logoutButton'>No se encontraron datos para esta estación</p>
+
+        }
+    </>)
+
+    ;
 }
