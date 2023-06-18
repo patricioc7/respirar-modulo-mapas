@@ -1,11 +1,14 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
 import {MapPopup} from "./mapPopup";
+import {apiClient} from "../../services/apiClient";
 
 export const Map = ({stations, coords, setCoords}) => {
+
+  const [currentStation, setCurrentStation] = useState({})
 
   const options = {
     enableHighAccuracy: true,
@@ -41,7 +44,6 @@ export const Map = ({stations, coords, setCoords}) => {
   };
 
   const customIcon = new L.Icon({
-    //creating a custom icon to use in Marker
     iconUrl: icon,
     iconSize: [25, 35],
     iconAnchor: [5, 30],
@@ -50,9 +52,14 @@ export const Map = ({stations, coords, setCoords}) => {
   const MapView = () => {
     let map = useMap();
     map.setView([coords.latitude, coords.longitude], map.getZoom());
-    //Sets geographical center and zoom for the view of the map
     return null;
   };
+
+  const handleMarkerClick = (id) => {
+    apiClient.getStation(id).then((response) => {
+      setCurrentStation(response.data)
+    })
+  }
 
   return (
     <MapContainer
@@ -67,20 +74,32 @@ export const Map = ({stations, coords, setCoords}) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {stations.map((station) => {
-        return (
-          // TODO hacer bien este markup que es horrible
-          <Marker
-            icon={customIcon}
-            position={[
-              station.coordinates.latitude,
-              station.coordinates.longitude,
-            ]}
-          >
-            <Popup>
-              <MapPopup station={station} />
-            </Popup>
-          </Marker>
-        );
+        if (station.coordinates?.latitude && station.coordinates?.longitude) {
+          return (
+
+              // TODO hacer bien este markup que es horrible
+              <Marker
+                  icon={customIcon}
+                  position={[
+                    station.coordinates.latitude,
+                    station.coordinates.longitude,
+                  ]}
+                  // Marker no tiene onClick nativo
+                  eventHandlers={{
+                    click: () => {
+                      handleMarkerClick(station.id)
+                    },
+                  }}
+                  key={station.id}
+
+              >
+                <Popup>
+                  <MapPopup station={currentStation} />
+                </Popup>
+              </Marker>
+          );
+        }
+
       })}
 
       <MapView />
