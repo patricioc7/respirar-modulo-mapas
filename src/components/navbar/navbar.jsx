@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Login from "./login";
-import {Button, Offcanvas} from "react-bootstrap";
-import {SearchAndResults} from "../search/SearchAndResults";
+import { Button, Offcanvas } from "react-bootstrap";
+import { SearchAndResults } from "../search/SearchAndResults";
 
-export const Navbar = ({stations, setCoords, setOnlyMyStations, onlyMyStations}) => {
-
+export const Navbar = ({
+  stations,
+  setCoords,
+  setOnlyMyStations,
+  onlyMyStations,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,21 +24,24 @@ export const Navbar = ({stations, setCoords, setOnlyMyStations, onlyMyStations})
           href="#"
           width="100px"
         />
-        <Button
-          className="navbar-toggler"
-          onClick={handleShow}
-        >
+        <Button className="navbar-toggler" onClick={handleShow}>
           <span className="navbar-dark navbar-toggler-icon"></span>
         </Button>
-        <Offcanvas show={show} onHide={handleClose} placement='end'
-                   className='fondo-menu, bg-primary'
+        <Offcanvas
+          show={show}
+          onHide={handleClose}
+          placement="end"
+          className="fondo-menu, bg-primary"
         >
           <Offcanvas.Header className="box-Menu" closeButton>
             <p className="box-MenuText">Menú</p>
           </Offcanvas.Header>
-            <Login setOnlyMyStations={setOnlyMyStations} onlyMyStations={onlyMyStations}/>
+          <Login
+            setOnlyMyStations={setOnlyMyStations}
+            onlyMyStations={onlyMyStations}
+          />
           <Offcanvas.Body className="fondo-menu">
-             <SearchAndResults stations={stations} setCoords={setCoords}/>
+            <SearchAndResults stations={stations} setCoords={setCoords} />
           </Offcanvas.Body>
         </Offcanvas>
       </div>

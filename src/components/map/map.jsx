@@ -1,14 +1,13 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import icon from "../../images/pinIcon.png";
 import L from "leaflet";
-import {MapPopup} from "./mapPopup";
-import {apiClient} from "../../services/apiClient";
+import { MapPopup } from "./mapPopup";
+import { apiClient } from "../../services/apiClient";
 
-export const Map = ({stations, coords, setCoords}) => {
-
-  const [currentStation, setCurrentStation] = useState({})
+export const Map = ({ stations, coords, setCoords }) => {
+  const [currentStation, setCurrentStation] = useState({});
 
   const options = {
     enableHighAccuracy: true,
@@ -57,9 +56,9 @@ export const Map = ({stations, coords, setCoords}) => {
 
   const handleMarkerClick = (id) => {
     apiClient.getStation(id).then((response) => {
-      setCurrentStation(response.data)
-    })
-  }
+      setCurrentStation(response.data);
+    });
+  };
 
   return (
     <MapContainer
@@ -76,30 +75,27 @@ export const Map = ({stations, coords, setCoords}) => {
       {stations.map((station) => {
         if (station.coordinates?.latitude && station.coordinates?.longitude) {
           return (
-
-              // TODO hacer bien este markup que es horrible
-              <Marker
-                  icon={customIcon}
-                  position={[
-                    station.coordinates.latitude,
-                    station.coordinates.longitude,
-                  ]}
-                  // Marker no tiene onClick nativo
-                  eventHandlers={{
-                    click: () => {
-                      handleMarkerClick(station.id)
-                    },
-                  }}
-                  key={station.id}
-
-              >
-                <Popup>
-                  <MapPopup station={currentStation} />
-                </Popup>
-              </Marker>
+            // TODO hacer bien este markup que es horrible
+            <Marker
+              icon={customIcon}
+              position={[
+                station.coordinates.latitude,
+                station.coordinates.longitude,
+              ]}
+              // Marker no tiene onClick nativo
+              eventHandlers={{
+                click: () => {
+                  handleMarkerClick(station.id);
+                },
+              }}
+              key={station.id}
+            >
+              <Popup>
+                <MapPopup station={currentStation} />
+              </Popup>
+            </Marker>
           );
         }
-
       })}
 
       <MapView />
