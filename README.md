@@ -65,5 +65,5 @@ $ docker build . -t patricioc7/respirar-mapas-web
 
 #### 3- Correr imagen ####
 ```bash
-$ docker run -p 3030:3030 -e REACT_APP_STATIONS_SERVICE_BASE_URL="http://host.docker.internal:3001" -d patricioc7/respirar-mapas-web
+$ docker run -p 3030:3030 -e REACT_APP_STATIONS_SERVICE_BASE_URL="http://host.docker.internal:3031" -d patricioc7/respirar-mapas-web
 ```

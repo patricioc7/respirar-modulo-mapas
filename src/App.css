@@ -232,9 +232,7 @@ h5 {
 .leaflet-popup-content {
   width: 190px !important;
 }
-.modal-dialog {
-  min-width: 800px !important;
-}
+
 
 .updateButton {
   background-color: white;
@@ -250,6 +248,13 @@ h5 {
 
 .contenerdorGrafico {
   padding-top: 20px;
+}
+
+@media (min-width: 800px) {
+  .modal-dialog {
+    min-width: 800px !important;
+  }
+
 }
 
 .modal-content {
