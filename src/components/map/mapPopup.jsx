@@ -70,7 +70,7 @@ export const MapPopup = ({ station }) => {
       </div>
 
       <Modal
-        className="modal"
+        className="modal graphModal"
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
       >

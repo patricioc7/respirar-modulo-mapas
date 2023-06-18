@@ -154,6 +154,7 @@ h5 {
   border: none;
   border-bottom: 2px solid white;
   font-family: 'GothamLight';
+  color: white;
 }
 
 .inputLogin::placeholder, .whiteText{
@@ -251,13 +252,13 @@ h5 {
 }
 
 @media (min-width: 800px) {
-  .modal-dialog {
+  .graphModal .modal-dialog {
     min-width: 800px !important;
   }
 
 }
 
-.modal-content {
+.graphModal .modal-content {
   min-height: 586px;
 }
 
